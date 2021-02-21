@@ -65,12 +65,12 @@ console.log(questions[3].answers)
 console.log(questions[Math.floor(Math.random() * questions.length)].question)
 
 // random question
-var question1 = questions[0].question
-var question2 = questions[1].question
-var question3 = questions[2].question
-var question4 = questions[3].question
+var question1 = questions[0]
+var question2 = questions[1]
+var question3 = questions[2]
+var question4 = questions[3]
 
-var randomQuestion = questions[Math.floor(Math.random() * questions.length)].question
+// var randomQuestion = questions[Math.floor(Math.random() * questions.length)].question
 
 //Game start
 function startGame() {
@@ -80,32 +80,26 @@ function startGame() {
     questionDisplay();
 }
 
+var questionIndex = 0;
+var currentlyQuestion = questions[questionIndex];
+
 //Game display on the card
 function questionDisplay() {
     //question display
-    questionEL.innerHTML = randomQuestion;
-
-    //answer display
-    if (question1) {
-        answersLength = questions[0].answers.length
-        answerA = document.getElementById("answerA")
-        answerB = document.getElementById("answerB")
-        answerC = document.getElementById("answerC")
-        answerD = document.getElementById("answerD")
-
-        answerA.innerText = questions[0].answers[0].text;
-        answerB.innerText = questions[0].answers[1].text;
-        answerC.innerText = questions[0].answers[2].text;
-        answerD.innerText = questions[0].answers[3].text;
-
-
-        // for (var i = 0; i < answersLength; i++) {
-        //     answerA.innerText = questions[0].answers[i];
-        // }
-    }
-
+    answerA = document.getElementById("answerA")
+    answerB = document.getElementById("answerB")
+    answerC = document.getElementById("answerC")
+    answerD = document.getElementById("answerD")
+    
+    // for (var i = 0; i < questions.length; i++) {
+    questionEL.innerHTML = currentlyQuestion.question;
+    answerA.innerText = currentlyQuestion.answers[0].text;
+    answerB.innerText = currentlyQuestion.answers[1].text;
+    answerC.innerText = currentlyQuestion.answers[2].text;
+    answerD.innerText = currentlyQuestion.answers[3].text;
 }
 
+function nextQuestion() {
+    questionDisplay(currentlyQuestion.questionIndex += 1);
+}
 
-
-function selectAnswer(){}
