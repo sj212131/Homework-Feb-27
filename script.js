@@ -5,9 +5,12 @@ var answerButtenEl = document.getElementById("answerbtn")
 var timeEl = document.querySelector(".time");
 var inputInt = document.getElementById("intBox")
 var saveBtn = document.getElementById("saveBtn")
+var startTag = document.getElementById("tagStart")
+var highScore = document.getElementById("score")
 
 var userscore = 0
 var secondsLeft = 30;
+highScore.innerText = userscore //need int 
 
 //question bank
 var questions = [
@@ -65,9 +68,10 @@ var question4 = questions[3]
 function startGame() {
     questionIndex = 0;
     console.log('Game start');
-    startButton.classList.add('hide');
-    inputInt.classList.add('hide');
     saveBtn.classList.add('hide');
+    startTag.classList.add('hide');
+    inputInt.classList.add('hide');
+    startButton.classList.add('hide');
     questionCard.classList.remove('hide');
     questionDisplay();
     selection();
@@ -76,6 +80,7 @@ function startGame() {
 
 //timer
 function setTime() {
+    var secondsLeft = 30;
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       secondsLeft--;
@@ -141,32 +146,43 @@ function nextQuestion() {
 
 //corrections
 function selection() {
-    correction();
+    // correction();
     var selectionBtn = document.querySelector('.answer-btns');
-    console.log(selectionBtn)
-    selectionBtn.addEventListener('click', nextQuestion)
+    console.log(selectionBtn);
+    selectionBtn.addEventListener('click', nextQuestion) ;
+
+
+
+    //how to targeting the answers correct elements???
+    // if correct is true, then add userscore++ 
+    if (selectionBtn.addEventListener('click', nextQuestion)) {
+        correct();
+    } 
+    else { //if its falut, then secondleft - 5.
+        wrong();
+    }
 }
 
-function correction(e) {
-    var selcetedBtn = e.target
-    var correct = selcetedBtn.dataset.correct
-    console.log(correct)
-}
+// function correction(e) {
+//     var selcetedBtn = e.target
+//     var correct = selcetedBtn.dataset.correct
+//     console.log(correct)
+// }
 
 function correct() {
     userscore++;
-    localStorage.setItem("Highest score: ", userscore)
+    console.log(userscore)
 }
 
 function wrong() {
-    secondsLeft -= 5
+    secondsLeft -= 5;
 }
 
 saveBtn.addEventListener('click', saveDate);
 
-function saveDate() {
+function saveDate(e) {
     e.preventDefault();
-    localStorage.setItem("score", userscore);
+    localStorage.setItem("score", userscore);//need int
 }
 
 
