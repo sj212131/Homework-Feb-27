@@ -198,6 +198,6 @@ saveBtn.addEventListener('click', saveDate);
 
 function saveDate(e) {
     e.preventDefault();
-    localStorage.setItem("score", userscore);
+    localStorage.setItem("score", inputInt.val());
     highScore.innerText = userscore;
 }
