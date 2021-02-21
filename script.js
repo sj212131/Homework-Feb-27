@@ -8,9 +8,9 @@ var saveBtn = document.getElementById("saveBtn")
 var startTag = document.getElementById("tagStart")
 var highScore = document.getElementById("score")
 
+
 var userscore = 0
 var secondsLeft = 30;
-highScore.innerText = userscore //need int 
 
 //question bank
 var questions = [
@@ -96,7 +96,6 @@ function setTime() {
 }
 
 
-
 function endMessage() {
     timeEl.textContent = " Game over !";
     questionEL.innerHTML = questions[4].question;
@@ -108,8 +107,13 @@ function endMessage() {
     startButton.innerText = "Restart"
     secondsLeft = 30;
 }
+
+
+
 var questionIndex = 0;
 var currentlyQuestion = questions[questionIndex];   
+
+
 
 //Game display on the card
 function questionDisplay() {
@@ -126,16 +130,20 @@ function questionDisplay() {
     }
     
     // Answers for different questions 
-    questionEL.innerHTML = questions[questionIndex].question;
+    questionEL.innerText = questions[questionIndex].question;
     answerA.innerText = questions[questionIndex].answers[0].text;
     answerB.innerText = questions[questionIndex].answers[1].text;
     answerC.innerText = questions[questionIndex].answers[2].text;
     answerD.innerText = questions[questionIndex].answers[3].text;
+    answerA.setAttribute("data-correct", questions[questionIndex].answers[0].correct)
+    answerB.setAttribute("data-correct", questions[questionIndex].answers[1].correct)
+    answerC.setAttribute("data-correct", questions[questionIndex].answers[2].correct)
+    answerD.setAttribute("data-correct", questions[questionIndex].answers[3].correct)
 }
 
 //next question
 function nextQuestion() {
-    questionIndex++;
+    questionIndex ++;
     questionDisplay(questions[questionIndex].question);
     console.log(questionIndex)
     if (questionIndex == 4) {
@@ -144,48 +152,52 @@ function nextQuestion() {
     }
 }
 
-//corrections
+//selection
 function selection() {
     // correction();
     var selectionBtn = document.querySelector('.answer-btns');
     console.log(selectionBtn);
     selectionBtn.addEventListener('click', nextQuestion) ;
+    //selcetion interact
+    // var selectionBtn = document.querySelectorAll(".answer-btns button.btn");
+    // selectionBtn.forEach(function (button) {
+    //     button.addEventListener("click", function () {
+    //         var isCorrect = button.getAttribute("data-correct");
+    //         if (isCorrect) {
+    //             correct();
+    //         } else {
+    //             wrong()
+                
+    //         }
+            // If isCorrect, then add to user score AND proceed to next question;
+            // If !isCorrect, then penalize the user's time and proceed to next question
+//         });
+//     });
 
-
-
-    //how to targeting the answers correct elements???
-    // if correct is true, then add userscore++ 
-    if (selectionBtn.addEventListener('click', nextQuestion)) {
-        correct();
-    } 
-    else { //if its falut, then secondleft - 5.
-        wrong();
-    }
+//    //how to targeting the answers correct elements??????????????????????????????????????????
 }
 
-// function correction(e) {
-//     var selcetedBtn = e.target
+//corrections
+// function correction(e) { ···················not working this sway···············
+//     var selcetedBtn = e.target 
 //     var correct = selcetedBtn.dataset.correct
 //     console.log(correct)
-// }
+// // }
 
 function correct() {
-    userscore++;
+    nextQuestion();
     console.log(userscore)
 }
 
 function wrong() {
     secondsLeft -= 5;
+    nextQuestion();
 }
 
 saveBtn.addEventListener('click', saveDate);
 
 function saveDate(e) {
     e.preventDefault();
-    localStorage.setItem("score", userscore);//need int
+    localStorage.setItem("score", userscore);
+    highScore.innerText = userscore;
 }
-
-
-
-
-
