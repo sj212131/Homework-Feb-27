@@ -8,6 +8,11 @@
     <title>Javascript Quiz</title>
 </head>
 <body>
+    
+    <header class="headerTimer">
+        <h1 class="time">30 Sec only!</h1>
+    </header>
+
     <div class="container">
         <div id = "question-container" class="hide">
             <div id = "question">Question</div>
@@ -20,6 +25,12 @@
         </div>
         <div class="controls">
             <button id = "startbtn" class = "start-btn">Start</button>
+        </div>
+        <div>
+            <input type="text" id="intBox" class="Intbox hide" placeholder="Please enter your initials">
+        </div>
+        <div>
+            <button id = "saveBtn" class = "save-btn hide">Save</button>
         </div>
     </div>
 <script src="./script.js"></script>
