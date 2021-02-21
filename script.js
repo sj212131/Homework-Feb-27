@@ -90,6 +90,9 @@ function questionDisplay() {
     answerB = document.getElementById("answerB")
     answerC = document.getElementById("answerC")
     answerD = document.getElementById("answerD")
+
+    var questionIndex = 0;
+    var currentlyQuestion = questions[questionIndex];
     
     // for (var i = 0; i < questions.length; i++) {
     questionEL.innerHTML = currentlyQuestion.question;
@@ -99,7 +102,18 @@ function questionDisplay() {
     answerD.innerText = currentlyQuestion.answers[3].text;
 }
 
+
+var selectionBtn = document.getElementsByClassName('answer-btns');
+selectionBtn.addEventListener('click', nextQuestion);
+// function selectAnswer(e){
+//     var selectedBtn = e.target;
+//     if (selectedBtn.correct) {
+//         userscore++
+//     }
+//     console.log("score is " + userscore)
+//     nextQuestion();
+// }
+
 function nextQuestion() {
     questionDisplay(currentlyQuestion.questionIndex += 1);
 }
-
