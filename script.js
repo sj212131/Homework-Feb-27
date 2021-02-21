@@ -124,6 +124,9 @@ function questionDisplay() {
     answerC = document.getElementById("answerC")
     answerD = document.getElementById("answerD")
 
+
+    console.log("question Display: " + questions[questionIndex].answers[0].correct);
+
     if (questionIndex == 4) {
         endMessage();
         return
@@ -139,14 +142,16 @@ function questionDisplay() {
     answerB.setAttribute("data-correct", questions[questionIndex].answers[1].correct)
     answerC.setAttribute("data-correct", questions[questionIndex].answers[2].correct)
     answerD.setAttribute("data-correct", questions[questionIndex].answers[3].correct)
+    
 }
+
 
 //next question
 function nextQuestion() {
-    questionIndex ++;
+    ++questionIndex;
     questionDisplay(questions[questionIndex].question);
     console.log(questionIndex)
-    if (questionIndex == 4) {
+    if (questionIndex >= 4) {
         endMessage();
         return
     }
@@ -157,26 +162,25 @@ function selection() {
     // correction();
     var selectionBtn = document.querySelector('.answer-btns');
     console.log(selectionBtn);
-    selectionBtn.addEventListener('click', nextQuestion) ;
-    //selcetion interact
+    // selectionBtn.addEventListener('click', nextQuestion) ;
+    // selcetion interact
     // var selectionBtn = document.querySelectorAll(".answer-btns button.btn");
     // selectionBtn.forEach(function (button) {
-    //     button.addEventListener("click", function () {
-    //         var isCorrect = button.getAttribute("data-correct");
-    //         if (isCorrect) {
-    //             correct();
-    //         } else {
-    //             wrong()
-                
-    //         }
-            // If isCorrect, then add to user score AND proceed to next question;
-            // If !isCorrect, then penalize the user's time and proceed to next question
-//         });
-//     });
-
-//    //how to targeting the answers correct elements??????????????????????????????????????????
+    // button.addEventListener("click", function () {
+    selectionBtn.addEventListener("click", function(event){
+        console.log("event target: ", event.target);
+        console.log("event target: ", event.target.dataset.correct);
+        var isCorrect = event.target.dataset.correct
+        console.log(isCorrect);
+        if (isCorrect) {
+            correct()
+            console.log('corrected running');
+        } if (!isCorrect){
+            wrong()
+            console.log('wrong running')
+        }
+    });
 }
-
 //corrections
 // function correction(e) { ···················not working this sway···············
 //     var selcetedBtn = e.target 
@@ -185,12 +189,15 @@ function selection() {
 // // }
 
 function correct() {
+    ++userscore;
     nextQuestion();
     console.log(userscore)
+    console.log('Added point')
 }
 
 function wrong() {
     secondsLeft -= 5;
+    console.log('5 sec lost')
     nextQuestion();
 }
 
