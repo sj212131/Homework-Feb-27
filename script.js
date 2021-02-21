@@ -6,11 +6,12 @@ var timeEl = document.querySelector(".time");
 var inputInt = document.getElementById("intBox")
 var saveBtn = document.getElementById("saveBtn")
 var startTag = document.getElementById("tagStart")
-var highScore = document.getElementById("score")
+var highScore = document.getElementById("highScore")
 
 
-var userscore = 0
+var userscore = parseInt(document.getElementById('highScore').textContent)
 var secondsLeft = 30;
+var questionIndex = 0;
 
 //question bank
 var questions = [
@@ -65,7 +66,8 @@ var question3 = questions[2]
 var question4 = questions[3]
 
 //Game start
-function startGame() {
+function startGame(e) {
+    console.log("startGame")
     questionIndex = 0;
     console.log('Game start');
     saveBtn.classList.add('hide');
@@ -76,10 +78,12 @@ function startGame() {
     questionDisplay();
     selection();
     setTime();
-}
+    console.log(questionIndex)
+}  
 
 //timer
 function setTime() {
+    console.log("setTime")
     var secondsLeft = 30;
     // Sets interval in variable
     var timerInterval = setInterval(function() {
@@ -97,10 +101,10 @@ function setTime() {
 
 
 function endMessage() {
+    console.log("endMessage")
     timeEl.textContent = " Game over !";
     questionEL.innerHTML = questions[4].question;
     questionCard.classList.add('hide');
-
     startButton.classList.remove('hide');
     inputInt.classList.remove('hide');
     saveBtn.classList.remove('hide');
@@ -110,13 +114,12 @@ function endMessage() {
 
 
 
-var questionIndex = 0;
-var currentlyQuestion = questions[questionIndex];   
-
+// var currentlyQuestion = questions[questionIndex];   
 
 
 //Game display on the card
 function questionDisplay() {
+    console.log("questionDisplay")
     console.log(questions[questionIndex].question)
     //question display
     answerA = document.getElementById("answerA")
@@ -127,11 +130,6 @@ function questionDisplay() {
 
     console.log("question Display: " + questions[questionIndex].answers[0].correct);
 
-    if (questionIndex == 4) {
-        endMessage();
-        return
-    }
-    
     // Answers for different questions 
     questionEL.innerText = questions[questionIndex].question;
     answerA.innerText = questions[questionIndex].answers[0].text;
@@ -148,63 +146,62 @@ function questionDisplay() {
 
 //next question
 function nextQuestion() {
-    ++questionIndex;
+    console.log("nextQuestion")
+    questionIndex += 1;
     questionDisplay(questions[questionIndex].question);
-    console.log(questionIndex)
+    console.log("Q index: " + questionIndex)
     if (questionIndex >= 4) {
         endMessage();
-        return
+        return;
     }
 }
 
 //selection
 function selection() {
     // correction();
+    console.log("selection")
     var selectionBtn = document.querySelector('.answer-btns');
     console.log(selectionBtn);
-    // selectionBtn.addEventListener('click', nextQuestion) ;
-    // selcetion interact
-    // var selectionBtn = document.querySelectorAll(".answer-btns button.btn");
-    // selectionBtn.forEach(function (button) {
-    // button.addEventListener("click", function () {
     selectionBtn.addEventListener("click", function(event){
         console.log("event target: ", event.target);
         console.log("event target: ", event.target.dataset.correct);
         var isCorrect = event.target.dataset.correct
         console.log(isCorrect);
-        if (isCorrect) {
-            correct()
+        console.log(isCorrect, typeof isCorrect);
+        if (isCorrect === "true") {
+            correct();
             console.log('corrected running');
-        } if (!isCorrect){
-            wrong()
-            console.log('wrong running')
+            console.log('Q index ' + questionIndex);
+        } if (isCorrect === "false") {
+            wrong();
+            console.log('wrong running');
+            console.log('Q index' + questionIndex);
         }
     });
 }
-//corrections
-// function correction(e) { ···················not working this sway···············
-//     var selcetedBtn = e.target 
-//     var correct = selcetedBtn.dataset.correct
-//     console.log(correct)
-// // }
 
 function correct() {
-    ++userscore;
+    console.log("correct")
+    userscore += 1;
     nextQuestion();
-    console.log(userscore)
-    console.log('Added point')
+    console.log('userscore is ' + userscore);
+    console.log('Added point');
 }
 
 function wrong() {
-    secondsLeft -= 5;
-    console.log('5 sec lost')
+    console.log("wrong")
+    secondsLeft--;
+    console.log('5 sec lost');
+    console.log('userscore is ' + userscore);
     nextQuestion();
 }
 
-saveBtn.addEventListener('click', saveDate);
+saveBtn.addEventListener('click', function(event){
+    console.log("saveDate");
+    event.preventDefault();
 
-function saveDate(e) {
-    e.preventDefault();
-    localStorage.setItem("score", inputInt.val());
-    highScore.innerText = userscore;
-}
+    var userInt = document.querySelector('#intBox').value;
+    localStorage.setItem ('initials ', userInt);
+    localStorage.setItem ('score ', userscore);
+    highScore.textContent = userscore;
+});
