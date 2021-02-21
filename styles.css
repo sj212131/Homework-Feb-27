@@ -41,8 +41,7 @@ body {
     align-items: center;
 }
 
-#startbtn,
-#nextbtn {
+#startbtn{
     width: 200px;
     border-radius: 10px;
     padding: 10px;
@@ -51,8 +50,7 @@ body {
 }
 
 .btn:hover,
-#startbtn:hover,
-#nextbtn:hover {
+#startbtn:hover {
     border-color: gold;
 }
 
