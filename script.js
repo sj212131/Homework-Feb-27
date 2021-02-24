@@ -179,10 +179,12 @@ function selection() {
         console.log(isCorrect, typeof isCorrect);
         if (isCorrect === "true") {
             correct();
+            document.body.style.backgroundColor = "#99FF33";
             console.log('corrected running');
             console.log('Q index ' + questionIndex);
         } if (isCorrect === "false") {
             wrong();
+            document.body.style.backgroundColor = "#FF6666";
             console.log('wrong running');
             console.log('Q index' + questionIndex);
         }
