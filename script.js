@@ -93,7 +93,6 @@ function startGame(e) {
 //timer
 function setTime() {
     console.log("setTime")
-    var secondsLeft = 30;
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       secondsLeft--;
