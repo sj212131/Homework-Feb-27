@@ -84,7 +84,7 @@ function startGame(e) {
     selection();
     setTime();
     console.log(questionIndex)
-    
+
     if (startButton.innerText === "Restart") {
         location.reload();
     }
@@ -200,7 +200,7 @@ function correct() {
 
 function wrong() {
     console.log("wrong")
-    secondsLeft--;
+    secondsLeft -= 5;
     console.log('5 sec lost');
     console.log('userscore is ' + userscore);
     nextQuestion();
