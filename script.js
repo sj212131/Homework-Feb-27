@@ -57,7 +57,11 @@ var questions = [
 ]
 
 //click to start
-startButton.addEventListener('click', startGame);
+startButton.addEventListener('click', startGame); {
+    if (startButton.innerText === "Restart") {
+        location.reload();
+    }
+}
 
 // random question
 var question1 = questions[0]
@@ -67,6 +71,7 @@ var question4 = questions[3]
 
 //Game start
 function startGame(e) {
+    e.preventDefault
     console.log("startGame")
     questionIndex = 0;
     console.log('Game start');
@@ -79,6 +84,10 @@ function startGame(e) {
     selection();
     setTime();
     console.log(questionIndex)
+    
+    if (startButton.innerText === "Restart") {
+        location.reload();
+    }
 }  
 
 //timer
@@ -163,6 +172,7 @@ function selection() {
     var selectionBtn = document.querySelector('.answer-btns');
     console.log(selectionBtn);
     selectionBtn.addEventListener("click", function(event){
+        event.preventDefault();
         console.log("event target: ", event.target);
         console.log("event target: ", event.target.dataset.correct);
         var isCorrect = event.target.dataset.correct
