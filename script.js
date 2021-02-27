@@ -174,18 +174,21 @@ function selection() {
     });
 }
 
+//if answer is right
 function correct() {
     userscore += 1;
     highScore.textContent = userscore
     nextQuestion();
 }
 
+//if answer is wrong
 function wrong() {
     secondsLeft -= 5;
     highScore.textContent = userscore
     nextQuestion();
 }
 
+//localstorage
 saveBtn.addEventListener('click', function(event){
     event.preventDefault();
 
