@@ -72,7 +72,6 @@ var question4 = questions[3]
 //Game start
 function startGame(e) {
     e.preventDefault
-    console.log("startGame")
     questionIndex = 0;
     console.log('Game start');
     saveBtn.classList.add('hide');
@@ -83,7 +82,6 @@ function startGame(e) {
     questionDisplay();
     selection();
     setTime();
-    console.log(questionIndex)
 
     if (startButton.innerText === "Restart") {
         location.reload();
@@ -92,7 +90,6 @@ function startGame(e) {
 
 //timer
 function setTime() {
-    console.log("setTime")
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       secondsLeft--;
@@ -127,16 +124,13 @@ function endMessage() {
 
 //Game display on the card
 function questionDisplay() {
-    console.log("questionDisplay")
-    console.log(questions[questionIndex].question)
+
     //question display
     answerA = document.getElementById("answerA")
     answerB = document.getElementById("answerB")
     answerC = document.getElementById("answerC")
     answerD = document.getElementById("answerD")
 
-
-    console.log("question Display: " + questions[questionIndex].answers[0].correct);
 
     // Answers for different questions 
     questionEL.innerText = questions[questionIndex].question;
@@ -154,7 +148,6 @@ function questionDisplay() {
 
 //next question
 function nextQuestion() {
-    console.log("nextQuestion")
     questionIndex += 1;
     questionDisplay(questions[questionIndex].question);
     console.log("Q index: " + questionIndex)
@@ -167,48 +160,33 @@ function nextQuestion() {
 //selection
 function selection() {
     // correction();
-    console.log("selection")
     var selectionBtn = document.querySelector('.answer-btns');
-    console.log(selectionBtn);
     selectionBtn.addEventListener("click", function(event){
         event.preventDefault();
-        console.log("event target: ", event.target);
-        console.log("event target: ", event.target.dataset.correct);
         var isCorrect = event.target.dataset.correct
-        console.log(isCorrect);
-        console.log(isCorrect, typeof isCorrect);
         if (isCorrect === "true") {
             correct();
             document.body.style.backgroundColor = "#99FF33";
-            console.log('corrected running');
-            console.log('Q index ' + questionIndex);
         } if (isCorrect === "false") {
             wrong();
             document.body.style.backgroundColor = "#FF6666";
-            console.log('wrong running');
-            console.log('Q index' + questionIndex);
         }
     });
 }
 
 function correct() {
-    console.log("correct")
     userscore += 1;
+    highScore.textContent = userscore
     nextQuestion();
-    console.log('userscore is ' + userscore);
-    console.log('Added point');
 }
 
 function wrong() {
-    console.log("wrong")
     secondsLeft -= 5;
-    console.log('5 sec lost');
-    console.log('userscore is ' + userscore);
+    highScore.textContent = userscore
     nextQuestion();
 }
 
 saveBtn.addEventListener('click', function(event){
-    console.log("saveDate");
     event.preventDefault();
 
     var userInt = document.querySelector('#intBox').value;
